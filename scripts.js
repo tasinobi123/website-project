@@ -10,3 +10,16 @@ function closeLightbox() {
     const lightbox = document.getElementById('lightbox');
     lightbox.style.display = 'none';
 }
+
+function submitEmotion(emotion) {
+    alert(`You selected: ${emotion}`);
+}
+
+function submitFeedback() {
+    const feedback = document.getElementById('emotionFeedback').value;
+    if (feedback) {
+        alert(`Thank you for sharing: "${feedback}"`);
+    } else {
+        alert('Please enter your feedback!');
+    }
+}
