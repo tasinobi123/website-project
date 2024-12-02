@@ -1,0 +1,75 @@
+/* General Body Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffe4e6; /* Soft pink */
+    color: #333;
+}
+
+/* Navigation Bar */
+header {
+    background-color: #ffb3c1; /* Light pink */
+    padding: 10px 0;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+nav li {
+    display: inline;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    padding: 10px 20px;
+    border-radius: 25px;
+    background-color: #ff6699; /* Darker pink for buttons */
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+nav a:hover {
+    transform: scale(1.1);
+    background-color: #ff3366; /* Even darker pink for hover */
+}
+
+/* Main Content */
+main {
+    margin: 50px auto;
+    padding: 20px;
+    max-width: 900px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: #ff3366; /* Highlighted pink */
+}
+
+p {
+    font-size: 1.1rem;
+    color: #555;
+}
+
+/* Footer */
+footer {
+    background-color: #ffb3c1;
+    color: white;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
