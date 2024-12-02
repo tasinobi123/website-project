@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotional State</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="emotional_state.html">Emotional State</a></li>
+                <li><a href="timeline.html">Timeline</a></li>
+                <li><a href="quizzes_puzzles.html">Quizzes & Puzzles</a></li>
+                <li><a href="places_to_visit.html">Places to Visit</a></li>
+                <li><a href="foods_to_try.html">Foods to Try</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Emotional State Section -->
+    <main>
+        <h1>How Are You Feeling?</h1>
+        <div class="emotions">
+            <button onclick="submitEmotion('Happy')">😊 Happy</button>
+            <button onclick="submitEmotion('Sad')">😢 Sad</button>
+            <button onclick="submitEmotion('Stressed')">😩 Stressed</button>
+            <button onclick="submitEmotion('Excited')">🤩 Excited</button>
+        </div>
+        <div class="feedback-form">
+            <h2>Why do you feel this way?</h2>
+            <textarea id="emotionFeedback" placeholder="Write here..."></textarea>
+            <button onclick="submitFeedback()">Submit</button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>Made with ❤️ by You</p>
+    </footer>
+</body>
+</html>
