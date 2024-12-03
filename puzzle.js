@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const rows = 3; // Number of rows
     const cols = 3; // Number of columns
     const pieces = [];
-    let emptyPosition = { row: rows - 1, col: cols - 1 };
+    let emptyPosition = { row: rows - 1, col: cols - 1 }; // Tracks the empty space
 
     // Create the tiles
     for (let row = 0; row < rows; row++) {
@@ -29,8 +29,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const tile = e.target;
         if (!tile.classList.contains("tile")) return;
 
-        const tileRow = parseInt(tile.dataset.row);
-        const tileCol = parseInt(tile.dataset.col);
+        const tileRow = parseInt(tile.dataset.row, 10);
+        const tileCol = parseInt(tile.dataset.col, 10);
 
         if (canMove(tileRow, tileCol)) {
             moveTile(tile, tileRow, tileCol);
@@ -57,11 +57,19 @@ document.addEventListener("DOMContentLoaded", () => {
         );
     }
 
-    // Move a tile
+    // Move a tile into the empty space
     function moveTile(tile, row, col) {
-        tile.style.transform = `translate(${emptyPosition.col * 100}px, ${emptyPosition.row * 100}px)`;
-        tile.dataset.row = emptyPosition.row;
-        tile.dataset.col = emptyPosition.col;
+        // Update the tile's position visually
+        const emptyRow = emptyPosition.row;
+        const emptyCol = emptyPosition.col;
+
+        tile.style.transform = `translate(${emptyCol * 100}px, ${emptyRow * 100}px)`;
+
+        // Update tile's dataset to the empty space
+        tile.dataset.row = emptyRow;
+        tile.dataset.col = emptyCol;
+
+        // Update the empty position to the tile's old position
         emptyPosition = { row, col };
     }
 
@@ -70,7 +78,8 @@ document.addEventListener("DOMContentLoaded", () => {
         return Array.from(container.children).every((tile, index) => {
             const row = Math.floor(index / cols);
             const col = index % cols;
-            return parseInt(tile.dataset.row) === row && parseInt(tile.dataset.col) === col;
+            return parseInt(tile.dataset.row, 10) === row && parseInt(tile.dataset.col, 10) === col;
         });
     }
 });
+
