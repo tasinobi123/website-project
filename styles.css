@@ -159,7 +159,7 @@ footer {
 .gallery img {
     width: 100%;                /* Make the image fill the container width */
     max-width: 300px;           /* Limit maximum width */
-    aspect-ratio: 3 / 2;        /* Maintains a consistent 3:2 ratio */
+    aspect-ratio: 4 / 3;        /* Maintains a consistent 4:3 ratio */
     object-fit: cover;          /* Crops to fit the aspect ratio */
     border-radius: 10px;
 }
