@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Emotional State</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="scripts.js" defer></script>
 </head>
 <body>
-    <!-- Header -->
     <header>
         <nav>
             <ul>
@@ -23,27 +21,28 @@
         </nav>
     </header>
 
-    <!-- Emotional State Section -->
     <main>
         <h1>How Are You Feeling?</h1>
-        <div class="emotions">
-            <button onclick="submitEmotion('Happy')">😊 Happy</button>
-            <button onclick="submitEmotion('Sad')">😢 Sad</button>
-            <button onclick="submitEmotion('Stressed')">😩 Stressed</button>
-            <button onclick="submitEmotion('Excited')">🤩 Excited</button>
-            <button onclick="submitEmotion('Angry')">😡 Angry</button>
-            <button onclick="submitEmotion('Annoyed')">🙄 Annoyed</button>
-        </div>
-        <div class="feedback-form">
-            <h2>Why do you feel this way?</h2>
-            <textarea id="emotionFeedback" placeholder="Write here..."></textarea>
-            <button onclick="submitFeedback()">Submit</button>
-        </div>
+        <form id="emotional-form" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSd5nOoLkymDDvRZ9epXDp__OSCGQ1vGJA6FyU8EjE0bcuU6Dw/formResponse" method="POST" target="_self">
+            <label for="emotion">How are you feeling?</label>
+            <select id="emotion" name="entry.1922885553" required>
+                <option value="">--Select--</option>
+                <option value="Happy">Happy</option>
+                <option value="Sad">Sad</option>
+                <option value="Excited">Excited</option>
+                <option value="Anxious">Anxious</option>
+                <!-- Add more options as needed -->
+            </select>
+
+            <label for="message">Tell me more about why you feel this way</label>
+            <textarea id="message" name="entry.279453980" rows="5" required></textarea>
+
+            <button type="submit">Send</button>
+        </form>
     </main>
 
-    <!-- Footer -->
     <footer>
-        <p>Made by Tasin</p>
+        <p>Made with ❤️ by You</p>
     </footer>
 </body>
 </html>
