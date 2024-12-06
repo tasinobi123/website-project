@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const gridSize = 3; // 3x3 grid
     const tileSize = 100; // Size of each tile (px)
     let tiles = [];
+    let selectedTile = null;
 
     // Create the tiles
     for (let row = 0; row < gridSize; row++) {
@@ -23,10 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
             tile.dataset.row = row;
             tile.dataset.col = col;
 
-            // Leave one slot empty
-            if (!(row === gridSize - 1 && col === gridSize - 1)) {
-                tiles.push(tile);
-            }
+            tiles.push(tile);
         }
     }
 
@@ -43,20 +41,26 @@ document.addEventListener("DOMContentLoaded", () => {
         gridContainer.appendChild(slot);
     }
 
-    // Move tiles from scrambled to grid
+    // Select a tile from the scrambled container
     scrambledContainer.addEventListener("click", (e) => {
         if (e.target.classList.contains("puzzle-piece")) {
-            const selectedTile = e.target;
-            const emptySlot = Array.from(gridContainer.children).find(
-                slot => !slot.hasChildNodes()
-            );
+            selectedTile = e.target;
+            message.textContent = "Now click an empty spot to place the tile!";
+        }
+    });
 
-            if (emptySlot) {
-                emptySlot.appendChild(selectedTile);
+    // Place the tile into the selected grid slot
+    gridContainer.addEventListener("click", (e) => {
+        if (e.target.classList.contains("puzzle-slot") && !e.target.hasChildNodes()) {
+            if (selectedTile) {
+                e.target.appendChild(selectedTile);
+                selectedTile = null;
 
                 // Check for win condition
                 if (checkWin()) {
                     message.textContent = "Congratulations! You solved the puzzle!";
+                } else {
+                    message.textContent = "Tile placed! Select another one.";
                 }
             }
         }
