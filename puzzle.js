@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const scrambledContainer = document.getElementById("scrambled-container");
-    const gridContainer = document.getElementById("grid-container");
+    const scrambledContainer = document.getElementById("scrambled-pieces");
+    const gridContainer = document.getElementById("puzzle-grid");
     const message = document.getElementById("message");
 
     const imageSrc = "images/puzzle.jpg"; // Path to your puzzle image
@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const tileSize = 100; // Size of each tile (px)
     let tiles = [];
 
-    // Create the scrambled pieces
+    // Create the tiles
     for (let row = 0; row < gridSize; row++) {
         for (let col = 0; col < gridSize; col++) {
             const tile = document.createElement("div");
@@ -19,11 +19,11 @@ document.addEventListener("DOMContentLoaded", () => {
             tile.style.backgroundSize = `${gridSize * tileSize}px ${gridSize * tileSize}px`;
             tile.style.backgroundPosition = `-${col * tileSize}px -${row * tileSize}px`;
 
-            // Assign the correct position to each tile
+            // Assign correct position data
             tile.dataset.row = row;
             tile.dataset.col = col;
 
-            // Only push tiles with images; leave one empty
+            // Leave one slot empty
             if (!(row === gridSize - 1 && col === gridSize - 1)) {
                 tiles.push(tile);
             }
@@ -33,17 +33,17 @@ document.addEventListener("DOMContentLoaded", () => {
     // Shuffle the tiles
     tiles = tiles.sort(() => Math.random() - 0.5);
 
-    // Add tiles to scrambled container
+    // Add tiles to the scrambled container
     tiles.forEach(tile => scrambledContainer.appendChild(tile));
 
-    // Create empty slots in the grid container
+    // Add empty slots to the grid
     for (let i = 0; i < gridSize * gridSize; i++) {
         const slot = document.createElement("div");
         slot.classList.add("puzzle-slot");
         gridContainer.appendChild(slot);
     }
 
-    // Handle tile moves
+    // Move tiles from scrambled to grid
     scrambledContainer.addEventListener("click", (e) => {
         if (e.target.classList.contains("puzzle-piece")) {
             const selectedTile = e.target;
@@ -78,5 +78,4 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
-
 
