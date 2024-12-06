@@ -8,7 +8,6 @@
     <script defer src="puzzle.js"></script>
 </head>
 <body>
-    <!-- Header -->
     <header>
         <nav>
             <ul>
@@ -19,19 +18,19 @@
         </nav>
     </header>
 
-    <!-- Main Content -->
     <main>
         <h1>Sliding Puzzle Game</h1>
-        <p>Rearrange the tiles to complete the puzzle! Click each piece to move it</p>
-        
-        <!-- Puzzle Container -->
-        <div id="puzzle-container" class="puzzle-container"></div>
+        <p>Click a piece on the left, then click an empty spot on the grid to place it!</p>
+        <div class="puzzle-container">
+            <div id="scrambled-pieces" class="scrambled"></div>
+            <div id="puzzle-grid" class="grid"></div>
+        </div>
         <p id="message"></p>
     </main>
 
-    <!-- Footer -->
     <footer>
         <p>Made by Tasin</p>
     </footer>
 </body>
 </html>
+
