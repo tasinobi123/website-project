@@ -3,7 +3,7 @@ const grid = document.getElementById("puzzle-grid");
 const message = document.getElementById("message");
 
 // Image splitting function
-const imageSrc = "puzzle.jpg";
+const imageSrc = "images/puzzle.jpg";
 let selectedPiece = null;
 
 // Initialize the puzzle
