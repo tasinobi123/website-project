@@ -163,16 +163,29 @@ footer {
     object-fit: cover;          /* Crops to fit the aspect ratio */
     border-radius: 10px;
 }
-
-#puzzle-container {
+/* for the puzzle */
+.puzzle-container {
     display: grid;
-    grid-template-columns: repeat(3, 100px);
-    grid-template-rows: repeat(3, 100px);
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
     gap: 2px;
-    width: 300px;
-    height: 300px;
+    max-width: 400px;
+    max-height: 400px;
     margin: 0 auto;
-    position: relative;
+}
+
+.puzzle-piece {
+    width: 100px;
+    height: 100px;
+    background-size: 400px 400px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.puzzle-piece.empty {
+    background-color: transparent;
+    cursor: default;
 }
 
 .tile {
@@ -184,6 +197,7 @@ footer {
     transition: transform 0.3s;
 }
 
+/* for the emotional state */
 #message {
     text-align: center;
     margin-top: 10px;
