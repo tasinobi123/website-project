@@ -197,10 +197,19 @@ footer {
 }
 
 .puzzle-piece {
-    background-size: 300px 300px;
-    background-position: center;
-    transition: transform 0.3s;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     cursor: pointer;
+    background-size: 300px 300px; /* Adjust based on your grid size */
+    background-position: center;
+    transition: transform 0.2s;
+}
+
+.grid-slot {
+    width: 100px;
+    height: 100px;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
 }
 
 .grid div {
