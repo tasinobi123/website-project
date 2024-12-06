@@ -1,81 +1,82 @@
-const scrambled = document.getElementById("scrambled-pieces");
-const grid = document.getElementById("puzzle-grid");
-const message = document.getElementById("message");
+document.addEventListener("DOMContentLoaded", () => {
+    const scrambledContainer = document.getElementById("scrambled-container");
+    const gridContainer = document.getElementById("grid-container");
+    const message = document.getElementById("message");
 
-// Image splitting function
-const imageSrc = "images/puzzle.jpg";
-let selectedPiece = null;
+    const imageSrc = "images/puzzle.jpg"; // Path to your puzzle image
+    const gridSize = 3; // 3x3 grid
+    const tileSize = 100; // Size of each tile (px)
+    let tiles = [];
 
-// Initialize the puzzle
-function initializePuzzle() {
-    const pieceIndices = [...Array(9).keys()]; // Create array [0, 1, 2, ..., 8]
-    const scrambledIndices = pieceIndices.sort(() => Math.random() - 0.5); // Shuffle indices
+    // Create the scrambled pieces
+    for (let row = 0; row < gridSize; row++) {
+        for (let col = 0; col < gridSize; col++) {
+            const tile = document.createElement("div");
+            tile.classList.add("puzzle-piece");
+            tile.style.width = `${tileSize}px`;
+            tile.style.height = `${tileSize}px`;
+            tile.style.backgroundImage = `url(${imageSrc})`;
+            tile.style.backgroundSize = `${gridSize * tileSize}px ${gridSize * tileSize}px`;
+            tile.style.backgroundPosition = `-${col * tileSize}px -${row * tileSize}px`;
 
-    // Populate scrambled pieces
-    scrambledIndices.forEach((index) => {
-        const piece = document.createElement("div");
-        piece.style.backgroundImage = `url(${imageSrc})`;
-        piece.style.backgroundPosition = `${-(index % 3) * 100}px ${-Math.floor(index / 3) * 100}px`;
-        piece.dataset.index = index;
-        piece.addEventListener("click", selectPiece);
-        scrambled.appendChild(piece);
-    });
+            // Assign the correct position to each tile
+            tile.dataset.row = row;
+            tile.dataset.col = col;
 
-    // Populate empty grid
-    for (let i = 0; i < 9; i++) {
+            // Only push tiles with images; leave one empty
+            if (!(row === gridSize - 1 && col === gridSize - 1)) {
+                tiles.push(tile);
+            }
+        }
+    }
+
+    // Shuffle the tiles
+    tiles = tiles.sort(() => Math.random() - 0.5);
+
+    // Add tiles to scrambled container
+    tiles.forEach(tile => scrambledContainer.appendChild(tile));
+
+    // Create empty slots in the grid container
+    for (let i = 0; i < gridSize * gridSize; i++) {
         const slot = document.createElement("div");
-        slot.dataset.index = i;
-        slot.addEventListener("click", placePiece);
-        grid.appendChild(slot);
+        slot.classList.add("puzzle-slot");
+        gridContainer.appendChild(slot);
     }
-}
 
-// Select a piece from scrambled
-function selectPiece(event) {
-    const piece = event.target;
+    // Handle tile moves
+    scrambledContainer.addEventListener("click", (e) => {
+        if (e.target.classList.contains("puzzle-piece")) {
+            const selectedTile = e.target;
+            const emptySlot = Array.from(gridContainer.children).find(
+                slot => !slot.hasChildNodes()
+            );
 
-    // Highlight the selected piece
-    if (selectedPiece) selectedPiece.classList.remove("selected");
-    selectedPiece = piece;
-    selectedPiece.classList.add("selected");
-}
+            if (emptySlot) {
+                emptySlot.appendChild(selectedTile);
 
-// Place the piece on the grid
-function placePiece(event) {
-    if (!selectedPiece) return;
-
-    const slot = event.target;
-
-    // Ensure the slot is empty
-    if (!slot.style.backgroundImage) {
-        slot.style.backgroundImage = selectedPiece.style.backgroundImage;
-        slot.style.backgroundPosition = selectedPiece.style.backgroundPosition;
-
-        // Remove piece from scrambled
-        selectedPiece.remove();
-        selectedPiece = null;
-
-        checkCompletion();
-    }
-}
-
-// Check if the puzzle is complete
-function checkCompletion() {
-    const slots = Array.from(grid.children);
-
-    const isComplete = slots.every((slot, index) => {
-        return (
-            slot.style.backgroundImage &&
-            slot.style.backgroundPosition === `${-(index % 3) * 100}px ${-Math.floor(index / 3) * 100}px`
-        );
+                // Check for win condition
+                if (checkWin()) {
+                    message.textContent = "Congratulations! You solved the puzzle!";
+                }
+            }
+        }
     });
 
-    if (isComplete) {
-        message.textContent = "Congratulations! You've completed the puzzle!";
+    // Check win condition
+    function checkWin() {
+        return Array.from(gridContainer.children).every((slot, index) => {
+            const tile = slot.firstChild;
+            if (tile) {
+                const correctRow = Math.floor(index / gridSize);
+                const correctCol = index % gridSize;
+                return (
+                    parseInt(tile.dataset.row) === correctRow &&
+                    parseInt(tile.dataset.col) === correctCol
+                );
+            }
+            return false;
+        });
     }
-}
-
-// Initialize on load
-initializePuzzle();
+});
 
 
