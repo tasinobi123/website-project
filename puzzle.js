@@ -1,15 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const scrambledContainer = document.getElementById("scrambled-pieces");
-    const gridContainer = document.getElementById("puzzle-grid");
-    const message = document.getElementById("message");
-
-    const imageSrc = "images/puzzle.jpg"; // Path to your puzzle image
+    const scrambledContainer = document.getElementById("scrambled-container");
+    const gridContainer = document.getElementById("grid-container");
+    const imageSrc = "images/puzzle.jpg"; // Ensure this path is correct
     const gridSize = 3; // 3x3 grid
     const tileSize = 100; // Size of each tile (px)
-    let tiles = [];
-    let selectedTile = null;
+    const tiles = [];
 
-    // Create the tiles
+    // Generate tiles for the scrambled container
     for (let row = 0; row < gridSize; row++) {
         for (let col = 0; col < gridSize; col++) {
             const tile = document.createElement("div");
@@ -19,8 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
             tile.style.backgroundImage = `url(${imageSrc})`;
             tile.style.backgroundSize = `${gridSize * tileSize}px ${gridSize * tileSize}px`;
             tile.style.backgroundPosition = `-${col * tileSize}px -${row * tileSize}px`;
-
-            // Assign correct position data
             tile.dataset.row = row;
             tile.dataset.col = col;
 
@@ -28,58 +23,29 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Shuffle the tiles
-    tiles = tiles.sort(() => Math.random() - 0.5);
-
-    // Add tiles to the scrambled container
+    // Shuffle tiles and add to scrambled container
+    tiles.sort(() => Math.random() - 0.5);
     tiles.forEach(tile => scrambledContainer.appendChild(tile));
 
-    // Add empty slots to the grid
+    // Create empty slots in the grid container
     for (let i = 0; i < gridSize * gridSize; i++) {
         const slot = document.createElement("div");
-        slot.classList.add("puzzle-slot");
+        slot.classList.add("grid-slot");
         gridContainer.appendChild(slot);
     }
 
-    // Select a tile from the scrambled container
+    // Allow movement of tiles
+    let selectedTile = null;
     scrambledContainer.addEventListener("click", (e) => {
         if (e.target.classList.contains("puzzle-piece")) {
             selectedTile = e.target;
-            message.textContent = "Now click an empty spot to place the tile!";
         }
     });
 
-    // Place the tile into the selected grid slot
     gridContainer.addEventListener("click", (e) => {
-        if (e.target.classList.contains("puzzle-slot") && !e.target.hasChildNodes()) {
-            if (selectedTile) {
-                e.target.appendChild(selectedTile);
-                selectedTile = null;
-
-                // Check for win condition
-                if (checkWin()) {
-                    message.textContent = "Congratulations! You solved the puzzle!";
-                } else {
-                    message.textContent = "Tile placed! Select another one.";
-                }
-            }
+        if (e.target.classList.contains("grid-slot") && selectedTile) {
+            e.target.appendChild(selectedTile);
+            selectedTile = null;
         }
     });
-
-    // Check win condition
-    function checkWin() {
-        return Array.from(gridContainer.children).every((slot, index) => {
-            const tile = slot.firstChild;
-            if (tile) {
-                const correctRow = Math.floor(index / gridSize);
-                const correctCol = index % gridSize;
-                return (
-                    parseInt(tile.dataset.row) === correctRow &&
-                    parseInt(tile.dataset.col) === correctCol
-                );
-            }
-            return false;
-        });
-    }
 });
-
