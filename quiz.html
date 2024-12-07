@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="quiz.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="quizzes_puzzles.html">Quizzes & Puzzles</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Quiz Game</h1>
+        <div id="quiz-selection">
+            <h2>Select a Difficulty Level</h2>
+            <button data-level="1">Level 1</button>
+            <button data-level="2">Level 2</button>
+            <button data-level="3">Level 3</button>
+        </div>
+
+        <div id="quiz-container" class="hidden">
+            <form id="quiz-form">
+                <div id="questions-container"></div>
+                <button type="submit">Submit</button>
+            </form>
+            <p id="score-display" class="hidden"></p>
+        </div>
+    </main>
+
+    <footer>
+        <p>Made by Tasin</p>
+    </footer>
+</body>
+</html>
