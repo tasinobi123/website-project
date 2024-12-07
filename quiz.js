@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const quizForm = document.getElementById("quiz-form");
     const scoreDisplay = document.getElementById("score-display");
 
+    let currentQuiz = [];
+
     const quizzes = {
         1: [
             { question: "What is the capital of China?", choices: ["Beijing", "Shanghai", "Tokyo", "Seoul"], answer: "Beijing" },
@@ -47,17 +49,17 @@ document.addEventListener("DOMContentLoaded", () => {
     quizSelectionButtons.forEach(button => {
         button.addEventListener("click", () => {
             const level = button.dataset.level;
-            startQuiz(level);
+            currentQuiz = quizzes[level];
+            startQuiz(currentQuiz);
         });
     });
 
     quizForm.addEventListener("submit", (e) => {
         e.preventDefault();
-        calculateScore();
+        calculateScore(currentQuiz);
     });
 
-    function startQuiz(level) {
-        const questions = quizzes[level];
+    function startQuiz(questions) {
         questionsContainer.innerHTML = "";
         questions.forEach((q, index) => {
             const questionDiv = document.createElement("div");
@@ -83,16 +85,15 @@ document.addEventListener("DOMContentLoaded", () => {
         scoreDisplay.classList.add("hidden");
     }
 
-    function calculateScore() {
+    function calculateScore(questions) {
         const formData = new FormData(quizForm);
         let score = 0;
-        const level = Object.keys(quizzes).find(l => quizzes[l] === quizzes[formData.get("level")]);
-        quizzes[level].forEach((q, index) => {
+        questions.forEach((q, index) => {
             if (formData.get(`question-${index}`) === q.answer) {
                 score++;
             }
         });
-        const percentage = Math.round((score / quizzes[level].length) * 100);
+        const percentage = Math.round((score / questions.length) * 100);
         scoreDisplay.textContent = `Your score: ${percentage}%`;
         scoreDisplay.classList.remove("hidden");
     }
