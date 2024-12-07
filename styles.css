@@ -278,3 +278,7 @@ form button:hover {
     background-color: #ff1493;
 }
 
+.selected {
+    outline: 2px solid #ff66b3; /* Highlight selected tile */
+}
+
